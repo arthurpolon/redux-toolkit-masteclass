@@ -1,17 +1,19 @@
 import Head from 'next/head'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { useAppDispatch } from '../store'
 import { decrement, increment } from '../store/countSlice'
 import { getPosts, getUsers, reset } from '../store/postsSlice'
 import { asyncIncrement } from '../store/slices/count/asyncAction'
 import { findUser } from '../store/slices/users'
-import { AppDispatch, TStore } from '../store/types'
+import { TRootState } from '../store/types'
 import styles from '../styles/Home.module.css'
 
 const Home = () => {
-  const dispatch = useDispatch<AppDispatch>()
-  const countStore = useSelector((store: TStore) => store.count)
-  const postsStore = useSelector((store: TStore) => store.posts)
-  const usersStore = useSelector((store: TStore) => store.users)
+  const dispatch = useAppDispatch()
+
+  const countStore = useSelector((state: TRootState) => state.count)
+  const postsStore = useSelector((state: TRootState) => state.posts)
+  const usersStore = useSelector((state: TRootState) => state.users)
 
   console.log(usersStore)
 

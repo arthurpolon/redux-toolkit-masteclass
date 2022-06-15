@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { TStore } from '../../types'
+import { TRootState } from '../../types'
 import { UsersState } from './types'
 
 const initialState: UsersState = {
@@ -7,7 +7,7 @@ const initialState: UsersState = {
   state: 'idle'
 }
 
-export const findUser = createAsyncThunk<{data: any, userId: number}, number, { state: TStore }>('users/findUser', async (userId: number) => {
+export const findUser = createAsyncThunk<{data: any, userId: number}, number, { state: TRootState }>('users/findUser', async (userId: number) => {
   const res = await fetch(`https://jsonplaceholder.typicode.com/users?id=${userId}`)
   const data = await res.json()
 

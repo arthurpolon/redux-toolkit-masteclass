@@ -1,8 +1,8 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from '@reduxjs/toolkit'
-import { TStore } from '../../types'
+import { TRootState } from '../../types'
 import { TCountState } from './types'
 
-export const asyncIncrement = createAsyncThunk<number, number, { state: TStore }>('count/asyncIncrement', async (amount: number) => {
+export const asyncIncrement = createAsyncThunk<number, number, { state: TRootState }>('count/asyncIncrement', async (amount: number) => {
   await new Promise(resolve => setTimeout(resolve, 2000))
 
   return amount
