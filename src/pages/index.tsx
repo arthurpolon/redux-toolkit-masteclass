@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { decrement, increment } from '../store/countSlice'
 import { getPosts, getUsers, reset } from '../store/postsSlice'
 import { asyncIncrement } from '../store/slices/count/asyncAction'
+import { findUser } from '../store/slices/users'
 import { AppDispatch, TStore } from '../store/types'
 import styles from '../styles/Home.module.css'
 
@@ -10,8 +11,9 @@ const Home = () => {
   const dispatch = useDispatch<AppDispatch>()
   const countStore = useSelector((store: TStore) => store.count)
   const postsStore = useSelector((store: TStore) => store.posts)
+  const usersStore = useSelector((store: TStore) => store.users)
 
-  console.log(countStore)
+  console.log(usersStore)
 
   const renderCards = () =>
     postsStore.posts.map((card) => (
@@ -41,6 +43,7 @@ const Home = () => {
           <button onClick={() => dispatch(decrement(1))}>Decrement</button>
           <button onClick={() => dispatch(getPosts())}>Get Posts</button>
           <button onClick={() => dispatch(getUsers())}>Get Users</button>
+          <button onClick={() => dispatch(findUser(5))}>Find User</button>
 
           {renderCards()}
         </div>
