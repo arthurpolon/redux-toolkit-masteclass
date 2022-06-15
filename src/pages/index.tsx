@@ -1,14 +1,23 @@
 import Head from 'next/head'
+import { useDispatch, useSelector } from 'react-redux'
+import { decrement, increment } from '../store/countSlice'
+import { getPosts, getUsers, reset } from '../store/postsSlice'
+import { asyncIncrement } from '../store/slices/count/asyncAction'
+import { AppDispatch, TStore } from '../store/types'
 import styles from '../styles/Home.module.css'
 
-const CARDS = [{ title: 'Titulo', description: 'Descrição' }]
-
 const Home = () => {
+  const dispatch = useDispatch<AppDispatch>()
+  const countStore = useSelector((store: TStore) => store.count)
+  const postsStore = useSelector((store: TStore) => store.posts)
+
+  console.log(countStore)
+
   const renderCards = () =>
-    CARDS.map((card) => (
-      <div className={styles.card} key={card.title}>
+    postsStore.posts.map((card) => (
+      <div className={styles.card} key={card.id}>
         <h2>{card.title}</h2>
-        <p>{card.description}</p>
+        <p>{card.body}</p>
       </div>
     ))
 
@@ -24,6 +33,15 @@ const Home = () => {
         <h1 className={styles.title}>Redux Toolkit</h1>
 
         <div className={styles.cardsWrapper}>
+          {countStore.count}
+          <button onClick={() => dispatch(reset())}>Reset</button>
+
+          <button onClick={() => dispatch(increment(5))}>Increment</button>
+          <button onClick={() => dispatch(asyncIncrement(5))}>Async Increment</button>
+          <button onClick={() => dispatch(decrement(1))}>Decrement</button>
+          <button onClick={() => dispatch(getPosts())}>Get Posts</button>
+          <button onClick={() => dispatch(getUsers())}>Get Users</button>
+
           {renderCards()}
         </div>
       </main>
