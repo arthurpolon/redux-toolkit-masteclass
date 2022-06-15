@@ -4,7 +4,7 @@ import { useAppDispatch } from '../store'
 import { decrement, increment } from '../store/countSlice'
 import { getPosts, getUsers, reset } from '../store/postsSlice'
 import { asyncIncrement } from '../store/slices/count/asyncAction'
-import { findUser } from '../store/slices/users'
+import { findUser } from '../store/slices/users/asyncActions'
 import { TRootState } from '../store/types'
 import styles from '../styles/Home.module.css'
 

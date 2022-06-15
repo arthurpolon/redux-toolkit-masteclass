@@ -10,7 +10,7 @@ export const asyncIncrement = createAsyncThunk<number, number, { state: TRootSta
   condition: (_, { getState }) => {
     const { count } = getState()
 
-    if (count.status === 'pending' || count.status === 'fulfilled') {
+    if (count.status === 'pending') {
       return false
     }
   }
