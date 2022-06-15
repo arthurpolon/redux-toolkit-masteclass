@@ -25,6 +25,22 @@ const Home = () => {
       </div>
     ))
 
+  const renderCount = () => (
+    <div>
+      {countStore.count}
+
+    <button
+      className={styles.button} onClick={() => dispatch(increment(5))}>Increment
+    </button>
+    <button
+      className={styles.button} onClick={() => dispatch(decrement(1))}>Decrement
+    </button>
+    <button
+      className={styles.button} onClick={() => dispatch(asyncIncrement(5))}>Async Increment
+    </button>
+  </div>
+  )
+
   return (
     <div className={styles.container}>
       <Head>
@@ -35,18 +51,18 @@ const Home = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Redux Toolkit</h1>
+            {renderCount()}
+          <button
+            className={styles.button} onClick={() => dispatch(reset())}>Reset</button>
+
+          <button
+            className={styles.button} onClick={() => dispatch(getPosts())}>Get Posts</button>
+          <button
+            className={styles.button} onClick={() => dispatch(getUsers())}>Get Users</button>
+          <button
+            className={styles.button} onClick={() => dispatch(findUser(5))}>Find User</button>
 
         <div className={styles.cardsWrapper}>
-          {countStore.count}
-          <button onClick={() => dispatch(reset())}>Reset</button>
-
-          <button onClick={() => dispatch(increment(5))}>Increment</button>
-          <button onClick={() => dispatch(asyncIncrement(5))}>Async Increment</button>
-          <button onClick={() => dispatch(decrement(1))}>Decrement</button>
-          <button onClick={() => dispatch(getPosts())}>Get Posts</button>
-          <button onClick={() => dispatch(getUsers())}>Get Users</button>
-          <button onClick={() => dispatch(findUser(5))}>Find User</button>
-
           {renderCards()}
         </div>
       </main>
