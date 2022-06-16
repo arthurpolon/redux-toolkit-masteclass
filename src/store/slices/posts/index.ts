@@ -13,7 +13,7 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    reset: (state, action) => initialState
+    reset: () => initialState
   },
   extraReducers
 })

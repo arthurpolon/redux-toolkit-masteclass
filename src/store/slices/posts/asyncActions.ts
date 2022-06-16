@@ -10,7 +10,7 @@ export const getUsers = createAsyncThunk('posts/getUser', async () => {
   return data
 })
 
-export const getPosts = createAsyncThunk('posts/getPosts', async (_, { rejectWithValue }) => {
+export const getPosts = createAsyncThunk('posts/getPosts', async (_, { getState, rejectWithValue }) => {
   try {
     const res = await fetch('https://jsonplaceholder.typicode.com/posts')
     const data = await res.json()
