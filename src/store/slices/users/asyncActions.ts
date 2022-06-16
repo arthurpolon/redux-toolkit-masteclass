@@ -2,11 +2,19 @@ import { ActionReducerMapBuilder, createAsyncThunk } from '@reduxjs/toolkit'
 import { TRootState } from '../../types'
 import { UsersState } from './types'
 
-export const findUser = createAsyncThunk<{data: any, userId: number}, number, { state: TRootState }>('users/findUser', async (userId: number) => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/users?id=${userId}`)
-  const data = await res.json()
+export const findUser = createAsyncThunk<{data: any, userId: number}, number, { state: TRootState, rejectValue: number }>('users/findUser', async (userId: number, { rejectWithValue }) => {
+  try {
+    const res = await fetch(`https://jsonplaceholder.typicode.com/users?id=${userId}`)
+    const data = await res.json()
 
-  return { data: data[0], userId }
+    if (data.length === 0) {
+      throw new Error('User not found')
+    }
+
+    return { data: data[0], userId }
+  } catch (err) {
+    return rejectWithValue(123)
+  }
 }, {
   condition: (userId, { getState }) => {
     return !Object.keys(getState().users.users).includes(userId.toString())
@@ -32,8 +40,9 @@ const findUserCases = (builder: ActionReducerMapBuilder<UsersState>) => {
     state.state = 'fulfilled'
   })
 
-  builder.addCase(findUser.rejected, (state) => {
+  builder.addCase(findUser.rejected, (state, action) => {
     state.state = 'rejected'
+    // const error = action.payload || number | undefined
   })
 }
 
